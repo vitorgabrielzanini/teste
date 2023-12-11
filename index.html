@@ -30,7 +30,14 @@
           value = value.slice(0, 11); // Limita a 11 dígitos
         }
 
-        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        // Adiciona os pontos e traço dinamicamente
+        if (value.length > 9) {
+          value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        } else if (value.length > 6) {
+          value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
+        } else if (value.length > 2) {
+          value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
+        }
 
         input.value = value;
       }
