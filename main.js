@@ -1,11 +1,19 @@
-const input = document.querySelector('input')
+document.addEventListener('DOMContentLoaded', function () {
+    const cpfInput = document.getElementById('cpfInput');
 
-input.addEventListener('input', () => {
-    let inputLength = input.value.length;
+    cpfInput.addEventListener('input', function () {
+      formatCPF(cpfInput);
+    });
 
-    if (inputLength === 3 || inputLength === 7) {
-        input.value += '.';
-    } else if (inputLength === 11) {
-        input.value += '-';
+    function formatCPF(input) {
+      let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+      if (value.length > 11) {
+        value = value.slice(0, 11); // Limita a 11 dígitos
+      }
+
+      value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+      input.value = value;
     }
-});
+  });
