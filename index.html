@@ -26,13 +26,18 @@
       function formatCPF(input) {
         let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
 
-        if (value.length > 11) {
-          value = value.slice(0, 11); // Limita a 11 dígitos
+        // Adiciona os pontos e traço dinamicamente
+        let formattedValue = '';
+        for (let i = 0; i < value.length; i++) {
+          if (i === 3 || i === 6) {
+            formattedValue += '.';
+          } else if (i === 9) {
+            formattedValue += '-';
+          }
+          formattedValue += value.charAt(i);
         }
 
-        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-
-        input.value = value;
+        input.value = formattedValue;
       }
     });
   </script>
